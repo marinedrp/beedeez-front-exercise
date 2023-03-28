@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {useEffect, useState} from 'react';
+import {FlatList, StyleSheet} from 'react-native';
+import { StationItem } from '../components/StationItem';
 import { Station } from '../interfaces/Station';
 import api from '../services/api';
 
@@ -20,21 +21,14 @@ export const Home = () => {
   };
 
   const renderItem = ({item}: {item: Station}) => (
-    <View>
-      <Text>Station Code: {item.stationCode}</Text>
-      <Text>Station Name: {item.name}</Text>
-      <Text>Available Bikes: {item.num_bikes_available}</Text>
-    </View>
+    <StationItem item={item} />
   );
 
   return (
-    <View>
-      <Text>This is the Home Page.</Text>
       <FlatList
         data={stations}
         renderItem={renderItem}
-        keyExtractor={(item) => item._id.toString()}
+        keyExtractor={(item) => item._id}
       />
-    </View>
   );
 };
