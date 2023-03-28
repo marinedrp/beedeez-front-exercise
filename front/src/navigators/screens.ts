@@ -1,4 +1,5 @@
 export enum SCREENS {
   LOGIN = 'Login',
-  SIGNUP = 'Signup'
+  SIGNUP = 'Signup',
+  HOME = 'Home',
 }
