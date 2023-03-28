@@ -1,27 +1,20 @@
-import {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios';
-import {navigate} from '../navigators/utils';
+import { navigate } from '../navigators/utils';
 
-export const Login = () => {
+export const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = async () => {
+  const handleSignup = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/login', {
+      const response = await axios.post('http://localhost:3000/signup', {
         email,
         password,
       });
-      // TODO save token, authenticate, navigate
-      console.log(response.data);
+      navigate('Login')
     } catch (error: any) {
       setError(error.response.data.message);
     }
@@ -29,28 +22,28 @@ export const Login = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Sign Up</Text>
       <TextInput
         style={styles.input}
         placeholder="E-mail"
-        onChangeText={text => setEmail(text)}
+        onChangeText={(text) => setEmail(text)}
         value={email}
       />
       <TextInput
         style={styles.input}
         placeholder="Password"
         secureTextEntry={true}
-        onChangeText={text => setPassword(text)}
+        onChangeText={(text) => setPassword(text)}
         value={password}
       />
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
       <Text style={styles.text}>
-        Don't have an account yet?{" "}
+        Already have an account?{" "}
         <Text style={styles.link} onPress={() => navigate('Signup')}>
-          Sign up here.
+          Log In.
         </Text>
       </Text>
     </View>
@@ -73,7 +66,7 @@ const styles = StyleSheet.create({
   },
   link: {
     fontSize: 18,
-    color: '#74B3CE',
+    color: '#8499A5',
     textDecorationLine: 'underline',
   },
   input: {
@@ -86,7 +79,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   button: {
-    backgroundColor: '#74B3CE',
+    backgroundColor: '#8499A5',
     borderRadius: 4,
     padding: 12,
     marginVertical: 8,
@@ -95,8 +88,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontWeight: 'bold',
     fontSize: 18,
+    fontWeight: 'bold',
   },
   errorText: {
     color: 'red',
