@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { navigate } from '../navigators/utils';
+import api from '../services/api';
 
 export const Signup = () => {
   const [email, setEmail] = useState('');
@@ -10,7 +11,7 @@ export const Signup = () => {
 
   const handleSignup = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/signup', {
+      const response = await api.post('/signup', {
         email,
         password,
       });
