@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import axios from 'axios';
 import {navigate} from '../navigators/utils';
+import api from '../services/api';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +16,7 @@ export const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/login', {
+      const response = await api.post('/login', {
         email,
         password,
       });

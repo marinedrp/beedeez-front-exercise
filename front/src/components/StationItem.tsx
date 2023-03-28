@@ -4,8 +4,8 @@ import { Station } from '../interfaces/Station';
 export const StationItem = ({item}: {item: Station}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.codeText}>Station Code: {item.stationCode}</Text>
-      <Text style={styles.nameText}>Station Name: {item.name}</Text>
+      <Text style={styles.nameText}>{item.name}</Text>
+      <Text style={styles.codeText}>Code: {item.stationCode}</Text>
       <Text style={styles.bikesText}>Available Bikes: {item.num_bikes_available}</Text>
     </View>
   );
@@ -27,19 +27,20 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  codeText: {
+  nameText: {
     color: '#1A2E42',
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  nameText: {
-    color: '#6F7E8C',
+  codeText: {
+    color: '#64717d',
     fontSize: 16,
     marginBottom: 5,
   },
   bikesText: {
     color: '#5085A5',
+    fontWeight: '500',
     fontSize: 16,
   },
 });
