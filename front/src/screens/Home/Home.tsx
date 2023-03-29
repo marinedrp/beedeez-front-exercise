@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, View, ActivityIndicator} from 'react-native';
-import {Loader} from '../components/Loader';
-import {StationItem} from '../components/StationItem';
-import {Station} from '../interfaces/Station';
-import api from '../services/api';
+import {FlatList} from 'react-native';
+import {Loader} from '../../components/Loader/Loader';
+import {StationItem} from '../../components/StationItem/StationItem';
+import {Station} from '../../types/Station';
+import api from '../../services/api';
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 30;
 
 export const Home = () => {
   const [stations, setStations] = useState<Station[]>([]);
@@ -43,7 +43,7 @@ export const Home = () => {
     <FlatList
       data={stations}
       renderItem={renderItem}
-      keyExtractor={item => item._id}
+      keyExtractor={item => item.stationCode.toString()}
       onEndReached={fetchNextPage}
       onEndReachedThreshold={0}
       ListFooterComponent={renderLoader}
