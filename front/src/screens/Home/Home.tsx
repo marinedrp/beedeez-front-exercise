@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {Loader} from '../../components/Loader/Loader';
 import {StationItem} from '../../components/StationItem/StationItem';
 import {Station} from '../../types/station';
 import api from '../../services/api';
+import {LogoutButton} from '../../components/LogoutButton/LogoutButton';
 
 const PAGE_SIZE = 30;
 
@@ -22,7 +23,10 @@ export const Home = () => {
     try {
       const endIndex = currentPage * PAGE_SIZE;
       const response = await api.get('/stations');
-      setStations(prevStations => [...prevStations, ...response.data.data.slice(0, endIndex)]);
+      setStations(prevStations => [
+        ...prevStations,
+        ...response.data.data.slice(0, endIndex),
+      ]);
       setIsLoading(false);
     } catch (error: any) {
       console.error(error);
@@ -40,13 +44,16 @@ export const Home = () => {
   const renderItem = ({item}: {item: Station}) => <StationItem item={item} />;
 
   return (
-    <FlatList
-      data={stations}
-      renderItem={renderItem}
-      keyExtractor={item => item.stationCode.toString()}
-      onEndReached={fetchNextPage}
-      onEndReachedThreshold={0}
-      ListFooterComponent={renderLoader}
-    />
+    <>
+      <LogoutButton />
+      <FlatList
+        data={stations}
+        renderItem={renderItem}
+        keyExtractor={item => item.stationCode.toString()}
+        onEndReached={fetchNextPage}
+        onEndReachedThreshold={0}
+        ListFooterComponent={renderLoader}
+      />
+    </>
   );
 };
