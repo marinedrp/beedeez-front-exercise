@@ -1,5 +1,5 @@
 import {View, Text} from 'react-native';
-import { Station } from '../../types/Station';
+import { Station } from '../../types/station';
 import { styles } from './styles';
 
 export const StationItem = ({item}: {item: Station}) => {

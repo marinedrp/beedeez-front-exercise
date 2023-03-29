@@ -1,8 +1,9 @@
 import {configureStore} from '@reduxjs/toolkit';
-import { authSlice } from '../slices/authSlice';
+import { useDispatch } from 'react-redux';
+// import authSlice from '../slices/authSlice';
 import { stationsSlice } from '../slices/stationsSlice';
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
     // auth: authSlice,
     // stations: stationsSlice,

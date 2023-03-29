@@ -1,14 +1,8 @@
 import {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import {navigate} from '../../navigators/utils';
 import api from '../../services/api';
-import { styles } from './styles';
+import {styles} from './styles';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,7 +15,7 @@ export const Login = () => {
         email,
         password,
       });
-      // TODO save token, authenticate, navigate
+      navigate('Home')
       console.log(response.data);
     } catch (error: any) {
       setError(error.response.data.message);
@@ -49,7 +43,7 @@ export const Login = () => {
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
       <Text style={styles.text}>
-        Don't have an account yet?{" "}
+        Don't have an account yet?{' '}
         <Text style={styles.link} onPress={() => navigate('Signup')}>
           Sign up here.
         </Text>

@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 import {Loader} from '../../components/Loader/Loader';
 import {StationItem} from '../../components/StationItem/StationItem';
-import {Station} from '../../types/Station';
+import {Station} from '../../types/station';
 import api from '../../services/api';
 
 const PAGE_SIZE = 30;
