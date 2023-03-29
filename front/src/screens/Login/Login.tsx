@@ -1,24 +1,33 @@
-import {useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
-import {navigate} from '../../navigators/utils';
+import { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { navigate } from '../../navigators/utils';
 import api from '../../services/api';
-import {styles} from './styles';
+import { loginStart, loginSuccess, loginFailure } from '../../slices/authSlice';
+import { styles } from './styles';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
+    dispatch(loginStart());
     try {
       const response = await api.post('/login', {
         email,
         password,
       });
-      navigate('Home')
-      console.log(response.data);
+      dispatch(
+        loginSuccess({
+          user: response.data.data,
+          token: response.data.authToken,
+        }),
+      );
+      navigate('Home');
     } catch (error: any) {
-      setError(error.response.data.message);
+      dispatch(loginFailure(error.response.data.message));
     }
   };
 

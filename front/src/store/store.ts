@@ -1,11 +1,13 @@
-import {configureStore} from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
-// import authSlice from '../slices/authSlice';
-import { stationsSlice } from '../slices/stationsSlice';
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '../slices/authSlice';
+// import stationReducer from '../slices/stationSlice';
 
 export const store = configureStore({
   reducer: {
-    // auth: authSlice,
-    // stations: stationsSlice,
+    auth: authReducer,
+    // station: stationReducer,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

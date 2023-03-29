@@ -7,3 +7,10 @@ export type TokenData = {
   token: string;
   expiresIn: number;
 };
+
+export interface AuthState {
+  user: UserData | null;
+  token: TokenData | null;
+  loading: boolean;
+  error: string;
+}
