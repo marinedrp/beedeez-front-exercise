@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { navigate } from '../../navigators/utils';
 import api from '../../services/api';
 import { loginStart, loginSuccess, loginFailure } from '../../slices/authSlice';
+import { RootState } from '../../store/store';
 import { styles } from './styles';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const error = useSelector((state: RootState) => state.auth.error);
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
