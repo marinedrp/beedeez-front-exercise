@@ -12,6 +12,7 @@ export const STATION_PROCESS_INFOS_JOB_NAME = 'ProcessAndPersisteStationInfos';
 const endPointStationStatus = 'https://velib-metropole-opendata.smoove.pro/opendata/Velib_Metropole/station_status.json';
 const endPointStationInfos = 'https://velib-metropole-opendata.smoove.pro/opendata/Velib_Metropole/station_information.json';
 
+
 export const persisteStationStatus = (station: Station) => {
   return from(
     StationModel.findOneAndUpdate(

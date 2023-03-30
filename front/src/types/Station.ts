@@ -23,3 +23,9 @@ export type Station = {
   lon: number;
   name: string;
 };
+
+export interface StationsState {
+  stations: Station[];
+  loading: boolean;
+  errorMessage: string | null;
+}
