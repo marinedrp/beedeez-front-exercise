@@ -1,59 +1,59 @@
-import {useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
-import {Loader} from '../../components/Loader/Loader';
-import {StationItem} from '../../components/StationItem/StationItem';
-import {Station} from '../../types/station';
-import api from '../../services/api';
-import {LogoutButton} from '../../components/LogoutButton/LogoutButton';
+import React, { useEffect } from 'react';
+import { FlatList, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { Loader } from '../../components/Loader/Loader';
+import { StationItem } from '../../components/StationItem/StationItem';
+import { Station } from '../../types/station';
+import { LogoutButton } from '../../components/LogoutButton/LogoutButton';
+import { fetchStations, selectStations, selectLoading, selectError } from '../../slices/stationsSlice';
 
-const PAGE_SIZE = 30;
 
 export const Home = () => {
-  const [stations, setStations] = useState<Station[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const REFRESH_INTERVAL = 60000; 
+  const dispatch: AppDispatch = useDispatch()
+  const email = useSelector((state: RootState) => state.auth.user?.email);
+  const stations = useSelector(selectStations);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
-    fetchStations();
-  }, [currentPage]);
+    dispatch(fetchStations());
+    
+    const intervalId = setInterval(() => {
+      dispatch(fetchStations());
+    }, REFRESH_INTERVAL);
+    console.log(stations)
 
-  const fetchStations = async () => {
-    setIsLoading(true);
+    return () => clearInterval(intervalId);
+  }, [dispatch]);
 
-    try {
-      const endIndex = currentPage * PAGE_SIZE;
-      const response = await api.get('/stations');
-      setStations(prevStations => [
-        ...prevStations,
-        ...response.data.data.slice(0, endIndex),
-      ]);
-      setIsLoading(false);
-    } catch (error: any) {
-      console.error(error);
-    }
-  };
-
-  const fetchNextPage = () => {
-    setCurrentPage(prevCurrentPage => prevCurrentPage + 1);
-  };
+  const renderItem = ({ item }: { item: Station }) => <StationItem item={item} />;
 
   const renderLoader = () => {
-    return isLoading ? <Loader /> : null;
+    return loading ? <Loader /> : null;
   };
 
-  const renderItem = ({item}: {item: Station}) => <StationItem item={item} />;
+  const loadMoreStations = () => {
+    if (!loading) {
+      dispatch(fetchStations());
+    }
+  };
 
   return (
     <>
       <LogoutButton />
-      <FlatList
+      <Text>Welcome {email}!</Text>
+      {error ? (<Text>{error}</Text>) : (
+        <FlatList
         data={stations}
         renderItem={renderItem}
-        keyExtractor={item => item.stationCode.toString()}
-        onEndReached={fetchNextPage}
+        keyExtractor={item => item._id.toString()}
+        onEndReached={loadMoreStations}
         onEndReachedThreshold={0}
         ListFooterComponent={renderLoader}
       />
+      )}
     </>
   );
 };
