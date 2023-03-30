@@ -1,17 +1,19 @@
 import {useEffect, useState} from 'react';
-import {FlatList, Text} from 'react-native';
+import {FlatList, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../../store/store';
 import {Loader} from '../../components/Loader/Loader';
 import {StationItem} from '../../components/StationItem/StationItem';
 import {Station} from '../../types/station';
 import {LogoutButton} from '../../components/LogoutButton/LogoutButton';
-import { SearchBar } from '../../components/SearchBar/SearchBar';
+import {SearchBar} from '../../components/SearchBar/SearchBar';
 import {
   fetchStations,
   selectStations,
   selectLoading,
 } from '../../slices/stationsSlice';
+import {FilterButton} from '../../components/FilterButton/FilterButton';
+import styles from './styles';
 
 export const Home = () => {
   const REFRESH_INTERVAL = 120000;
@@ -22,6 +24,8 @@ export const Home = () => {
   const [itemsToShow, setItemsToShow] = useState(10);
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const [searchPhrase, setSearchPhrase] = useState('');
+  const [showElectricBikes, setShowElectricBikes] = useState(false);
+  const [showMechanicalBikes, setShowMechanicalBikes] = useState(false);
 
   useEffect(() => {
     dispatch(fetchStations());
@@ -51,14 +55,33 @@ export const Home = () => {
     }
   };
 
-  const filteredStations = stations.filter(station =>
-    station.name.toLowerCase().includes(searchPhrase.toLowerCase())
+  const filteredStations = stations.filter(
+    station =>
+      station.name.toLowerCase().includes(searchPhrase.toLowerCase()) &&
+      (showMechanicalBikes
+        ? station.num_bikes_available_types[0].mechanical > 0
+        : true) &&
+      (showElectricBikes
+        ? station.num_bikes_available_types[1].ebike > 0
+        : true),
   );
 
   return (
     <>
       <LogoutButton />
       <Text>Welcome {email}!</Text>
+      <View style={styles.container}>
+        <FilterButton
+          label="Electric Bikes"
+          active={showElectricBikes}
+          onPress={() => setShowElectricBikes(!showElectricBikes)}
+        />
+        <FilterButton
+          label="Mechanical Bikes"
+          active={showMechanicalBikes}
+          onPress={() => setShowMechanicalBikes(!showMechanicalBikes)}
+        />
+      </View>
       <SearchBar
         searchPhrase={searchPhrase}
         setSearchPhrase={setSearchPhrase}
