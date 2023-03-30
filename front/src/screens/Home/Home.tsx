@@ -1,11 +1,12 @@
 import {useEffect, useState} from 'react';
-import {FlatList, Text, TextInput, View} from 'react-native';
+import {FlatList, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../../store/store';
 import {Loader} from '../../components/Loader/Loader';
 import {StationItem} from '../../components/StationItem/StationItem';
 import {Station} from '../../types/station';
 import {LogoutButton} from '../../components/LogoutButton/LogoutButton';
+import { SearchBar } from '../../components/SearchBar/SearchBar';
 import {
   fetchStations,
   selectStations,
@@ -20,6 +21,7 @@ export const Home = () => {
   const loading = useSelector(selectLoading);
   const [itemsToShow, setItemsToShow] = useState(10);
   const [hasMoreItems, setHasMoreItems] = useState(true);
+  const [searchPhrase, setSearchPhrase] = useState('');
 
   useEffect(() => {
     dispatch(fetchStations());
@@ -49,12 +51,20 @@ export const Home = () => {
     }
   };
 
+  const filteredStations = stations.filter(station =>
+    station.name.toLowerCase().includes(searchPhrase.toLowerCase())
+  );
+
   return (
     <>
       <LogoutButton />
       <Text>Welcome {email}!</Text>
+      <SearchBar
+        searchPhrase={searchPhrase}
+        setSearchPhrase={setSearchPhrase}
+      />
       <FlatList
-        data={stations.slice(0, itemsToShow)}
+        data={filteredStations.slice(0, itemsToShow)}
         renderItem={renderItem}
         keyExtractor={item => item._id}
         onEndReached={loadMoreStations}
