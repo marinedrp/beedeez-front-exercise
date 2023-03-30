@@ -75,11 +75,15 @@ export const Home = () => {
           label="Electric Bikes"
           active={showElectricBikes}
           onPress={() => setShowElectricBikes(!showElectricBikes)}
+          buttonColor="#5085A5"
+          buttonColorActive="#33566b"
         />
         <FilterButton
           label="Mechanical Bikes"
           active={showMechanicalBikes}
           onPress={() => setShowMechanicalBikes(!showMechanicalBikes)}
+          buttonColor="#64717d"
+          buttonColorActive="#3a424a"
         />
       </View>
       <SearchBar

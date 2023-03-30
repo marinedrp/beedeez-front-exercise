@@ -6,18 +6,22 @@ interface Props {
   label: string;
   active: boolean;
   onPress: () => void;
+  buttonColor: string,
+  buttonColorActive: string,
 }
 
 export const FilterButton: React.FC<Props> = ({
   label,
   active,
   onPress,
+  buttonColor,
+  buttonColorActive,
 }) => {
   return (
     <TouchableOpacity
-      style={active ? styles.activeButton : styles.button}
+      style={[styles.button, {backgroundColor: active ? buttonColorActive : buttonColor}]}
       onPress={onPress}>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, {color: active ? '#ffffff' : '#ffffff'}]}>{label}</Text>
     </TouchableOpacity>
   );
 };

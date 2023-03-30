@@ -3,20 +3,21 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   button: {
     backgroundColor: 'white',
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 10,
-    marginRight: 10,
-  },
-  activeButton: {
-    backgroundColor: 'green',
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 10,
-    marginRight: 10,
+    borderRadius: 25,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    marginVertical: 8,
+    marginHorizontal: 4,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
   },
   label: {
-    color: 'black',
+    color: '#444444',
     fontWeight: 'bold',
+    fontSize: 14,
+    lineHeight: 16,
   },
 });
