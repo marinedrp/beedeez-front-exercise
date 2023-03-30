@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     elevation: 4,
   },
   label: {
-    color: '#444444',
+    color: '#ffffff',
     fontWeight: 'bold',
     fontSize: 14,
     lineHeight: 16,

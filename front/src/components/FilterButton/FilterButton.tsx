@@ -21,7 +21,7 @@ export const FilterButton: React.FC<Props> = ({
     <TouchableOpacity
       style={[styles.button, {backgroundColor: active ? buttonColorActive : buttonColor}]}
       onPress={onPress}>
-      <Text style={[styles.label, {color: active ? '#ffffff' : '#ffffff'}]}>{label}</Text>
+      <Text style={styles.label}>{label}</Text>
     </TouchableOpacity>
   );
 };

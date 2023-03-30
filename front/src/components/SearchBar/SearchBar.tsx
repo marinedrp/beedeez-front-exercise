@@ -14,6 +14,7 @@ export const SearchBar = ({searchPhrase, setSearchPhrase}: Props) => {
         onChangeText={setSearchPhrase}
         value={searchPhrase}
         placeholder="Search stations by name"
+        placeholderTextColor="#777777"
       />
     </View>
   );
