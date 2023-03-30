@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../../store/store';
 import {Loader} from '../../components/Loader/Loader';
@@ -10,7 +10,6 @@ import {
   fetchStations,
   selectStations,
   selectLoading,
-  selectError,
 } from '../../slices/stationsSlice';
 
 export const Home = () => {
@@ -19,7 +18,6 @@ export const Home = () => {
   const email = useSelector((state: RootState) => state.auth.user?.email);
   const stations = useSelector(selectStations);
   const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
   const [itemsToShow, setItemsToShow] = useState(10);
   const [hasMoreItems, setHasMoreItems] = useState(true);
 
@@ -58,7 +56,7 @@ export const Home = () => {
       <FlatList
         data={stations.slice(0, itemsToShow)}
         renderItem={renderItem}
-        keyExtractor={item => item._id.toString()}
+        keyExtractor={item => item._id}
         onEndReached={loadMoreStations}
         onEndReachedThreshold={0}
         ListFooterComponent={renderLoader}
