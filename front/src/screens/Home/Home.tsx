@@ -68,7 +68,6 @@ export const Home = () => {
 
   return (
     <>
-      <LogoutButton />
       <Text>Welcome {email}!</Text>
       <View style={styles.container}>
         <FilterButton
