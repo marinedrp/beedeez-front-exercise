@@ -7,6 +7,8 @@ import {Login} from '../screens/Login/Login';
 import {Signup} from '../screens/Signup/Signup';
 import {Home} from '../screens/Home/Home';
 import {LogoutButton} from '../components/LogoutButton/LogoutButton';
+import { Image } from 'react-native';
+import Logo from '../assets/images/Logo.png'
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +22,8 @@ const AppStack = () => {
         component={Home}
         options={{
           headerRight: () => <LogoutButton />,
+          headerLeft: () => <Image source={{uri: Logo}} style={{ width: 150, height: 50, marginLeft: 15, resizeMode: 'contain' }}/>,
+          headerTitle: '',
         }}
       />
     </Stack.Navigator>
