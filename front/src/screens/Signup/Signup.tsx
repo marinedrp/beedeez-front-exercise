@@ -66,10 +66,10 @@ export const Signup = () => {
       setPassword={setPassword}
       error={error}
       handleAuth={handleSignup}
-      screen='Login'
-      title='Create your account'
-      text='Already have an account?'
-      link='Log in here'
+      screen="Login"
+      title="Create your account"
+      text="Already have an account?"
+      link="Log in here"
     />
   );
 };

@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 import {navigate} from '../../navigators/utils';
 import api from '../../services/api';
 import {loginStart, loginSuccess, loginFailure} from '../../slices/authSlice';
-import { AuthForm } from '../../components/AuthForm/AuthForm';
+import {AuthForm} from '../../components/AuthForm/AuthForm';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -37,22 +37,21 @@ export const Login = () => {
       if (errorMessage === 'email must be an email')
         setError('Please enter a valid email.');
       else setError(errorMessage);
-
     }
   };
 
   return (
     <AuthForm
-    email={email}
-    setEmail={setEmail}
-    password={password}
-    setPassword={setPassword}
-    error={error}
-    handleAuth={handleLogin}
-    screen='Signup'
-    title='Log in to your account'
-    text="Don't have an account yet?"
-    link='Sign up here'
-  />
+      email={email}
+      setEmail={setEmail}
+      password={password}
+      setPassword={setPassword}
+      error={error}
+      handleAuth={handleLogin}
+      screen="Signup"
+      title="Log in to your account"
+      text="Don't have an account yet?"
+      link="Sign up here"
+    />
   );
 };

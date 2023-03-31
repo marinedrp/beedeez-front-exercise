@@ -13,4 +13,4 @@ export interface AuthState {
   token: TokenData | null;
   loading: boolean;
   error: string;
-}
+};

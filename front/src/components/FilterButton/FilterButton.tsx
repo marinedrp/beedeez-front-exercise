@@ -37,10 +37,7 @@ export const FilterButton: React.FC<Props> = ({
         </View>
       )}
       <Text
-        style={[
-          styles.label,
-          {color: active ? colors.white : colors.black},
-        ]}>
+        style={[styles.label, {color: active ? colors.white : colors.black}]}>
         {label}
       </Text>
     </TouchableOpacity>

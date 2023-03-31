@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {FlatList, ImageBackground, Text, View} from 'react-native';
+import {FlatList, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch} from '../../store/store';
 import {Loader} from '../../components/Loader/Loader';

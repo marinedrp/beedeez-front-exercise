@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthState, UserData, TokenData } from '../types/auth';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {AuthState, UserData, TokenData} from '../types/auth';
+import {RootState} from '../store/store';
 
 const initialState: AuthState = {
   user: null,
@@ -12,10 +13,13 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    signupStart: (state) => {
+    signupStart: state => {
       state.loading = true;
     },
-    signupSuccess: (state, action: PayloadAction<{ user: UserData; token: TokenData }>) => {
+    signupSuccess: (
+      state,
+      action: PayloadAction<{user: UserData; token: TokenData}>,
+    ) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.loading = false;
@@ -25,10 +29,13 @@ export const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    loginStart: (state) => {
+    loginStart: state => {
       state.loading = true;
     },
-    loginSuccess: (state, action: PayloadAction<{ user: UserData; token: TokenData }>) => {
+    loginSuccess: (
+      state,
+      action: PayloadAction<{user: UserData; token: TokenData}>,
+    ) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.loading = false;
@@ -38,7 +45,7 @@ export const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    logout: (state) => {
+    logout: state => {
       state.user = null;
       state.token = null;
     },
@@ -54,5 +61,7 @@ export const {
   signupSuccess,
   signupFailure,
 } = authSlice.actions;
+
+export const selectToken = (state: RootState) => state.auth.token?.token;
 
 export default authSlice.reducer;

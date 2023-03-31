@@ -28,4 +28,4 @@ export interface StationsState {
   stations: Station[];
   loading: boolean;
   errorMessage: string | null;
-}
+};
