@@ -1,20 +1,24 @@
 import {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {navigate} from '../../navigators/utils';
 import api from '../../services/api';
 import {loginStart, loginSuccess, loginFailure} from '../../slices/authSlice';
-import {RootState} from '../../store/store';
 import {styles} from './styles';
 import Logo from '../../assets/images/Logo-light.png';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const error = useSelector((state: RootState) => state.auth.error);
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      setError('Please fill in both email and password.');
+      return;
+    }
+
     dispatch(loginStart());
     try {
       const response = await api.post('/login', {
@@ -30,8 +34,12 @@ export const Login = () => {
       navigate('Home');
     } catch (error: any) {
       console.error(error);
-      const errorMessage = error.response.data.message
+      const errorMessage = error.response.data.message;
       dispatch(loginFailure(errorMessage));
+      if (errorMessage === 'email must be an email')
+        setError('Please enter a valid email.');
+      else setError(errorMessage);
+
     }
   };
 

@@ -63,7 +63,6 @@ export const styles = StyleSheet.create({
     color: colors.error,
     fontWeight: '500',
     marginBottom: 10,
-    textAlign: 'center',
   },
   label: {
     fontWeight: 'bold',
