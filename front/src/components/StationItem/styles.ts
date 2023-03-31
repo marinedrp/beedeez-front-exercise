@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import { colors, font } from '../../theme/theme';
+import { colors } from '../../theme/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -47,6 +47,3 @@ export const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth
   }
 });
-
-//     borderRadius: 10,
-//     backgroundColor: '#f5f5f5',

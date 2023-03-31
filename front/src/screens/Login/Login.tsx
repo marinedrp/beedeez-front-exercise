@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { navigate } from '../../navigators/utils';
+import {useState} from 'react';
+import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {navigate} from '../../navigators/utils';
 import api from '../../services/api';
-import { loginStart, loginSuccess, loginFailure } from '../../slices/authSlice';
-import { RootState } from '../../store/store';
-import { styles } from './styles';
+import {loginStart, loginSuccess, loginFailure} from '../../slices/authSlice';
+import {RootState} from '../../store/store';
+import {styles} from './styles';
+import Logo from '../../assets/images/Logo-light.png';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -28,30 +29,41 @@ export const Login = () => {
       );
       navigate('Home');
     } catch (error: any) {
-      dispatch(loginFailure(error.response.data.message));
+      console.error(error);
+      const errorMessage = error.response.data.message
+      dispatch(loginFailure(errorMessage));
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="E-mail"
-        onChangeText={text => setEmail(text)}
-        value={email}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry={true}
-        onChangeText={text => setPassword(text)}
-        value={password}
-      />
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Submit</Text>
-      </TouchableOpacity>
+      <Image source={{uri: Logo}} style={styles.logo} />
+      <View style={styles.formContainer}>
+        <Text style={styles.title}>Log in to your account</Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="E-mail"
+            onChangeText={text => setEmail(text)}
+            value={email}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            secureTextEntry={true}
+            onChangeText={text => setPassword(text)}
+            value={password}
+          />
+        </View>
+        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
       <Text style={styles.text}>
         Don't have an account yet?{' '}
         <Text style={styles.link} onPress={() => navigate('Signup')}>

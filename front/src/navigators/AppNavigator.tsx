@@ -7,26 +7,44 @@ import {Login} from '../screens/Login/Login';
 import {Signup} from '../screens/Signup/Signup';
 import {Home} from '../screens/Home/Home';
 import {LogoutButton} from '../components/LogoutButton/LogoutButton';
-import { Image } from 'react-native';
-import Logo from '../assets/images/Logo-dark.png'
-import { colors } from '../theme/theme';
+import {Image} from 'react-native';
+import Logo from '../assets/images/Logo-dark.png';
+import {colors} from '../theme/theme';
 
 const Stack = createNativeStackNavigator();
 
 const AppStack = () => {
   return (
     <Stack.Navigator initialRouteName={SCREENS.LOGIN}>
-      <Stack.Screen name={SCREENS.LOGIN} component={Login} />
-      <Stack.Screen name={SCREENS.SIGNUP} component={Signup} />
+      <Stack.Screen
+        name={SCREENS.LOGIN}
+        component={Login}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name={SCREENS.SIGNUP}
+        component={Signup}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name={SCREENS.HOME}
         component={Home}
         options={{
           headerStyle: {
-            backgroundColor: '#111111',
+            backgroundColor: '#1c1c1c',
           },
           headerRight: () => <LogoutButton />,
-          headerLeft: () => <Image source={{uri: Logo}} style={{ width: 150, height: 50, marginLeft: 15, resizeMode: 'contain' }}/>,
+          headerLeft: () => (
+            <Image
+              source={{uri: Logo}}
+              style={{
+                width: 150,
+                height: 50,
+                marginLeft: 15,
+                resizeMode: 'contain',
+              }}
+            />
+          ),
           headerTitle: '',
         }}
       />
