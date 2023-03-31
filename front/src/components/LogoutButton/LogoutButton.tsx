@@ -1,4 +1,4 @@
-import {TouchableOpacity, Text, View} from 'react-native';
+import {TouchableOpacity, Text} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {navigate} from '../../navigators/utils';
 import {logout} from '../../slices/authSlice';
@@ -15,8 +15,8 @@ export const LogoutButton = () => {
 
   return (
     <TouchableOpacity style={styles.button} onPress={handleLogout}>
-        <Text style={styles.buttonText}>Log Out</Text>
-        <LogoutIcon />
+      <Text style={styles.buttonText}>Log Out</Text>
+      <LogoutIcon />
     </TouchableOpacity>
   );
 };

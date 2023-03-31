@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import { colors } from '../../theme/theme';
 
 export default StyleSheet.create({
   container: {
@@ -8,4 +9,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  noResultsText: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: colors.black
+  }
 });

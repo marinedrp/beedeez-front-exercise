@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, ImageBackground, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from '../../store/store';
+import {AppDispatch} from '../../store/store';
 import {Loader} from '../../components/Loader/Loader';
 import {StationItem} from '../../components/StationItem/StationItem';
 import {Station} from '../../types/station';
@@ -13,12 +13,11 @@ import {
 } from '../../slices/stationsSlice';
 import {FilterButton} from '../../components/FilterButton/FilterButton';
 import styles from './styles';
-import { colors } from '../../theme/theme';
+import {colors} from '../../theme/theme';
 
 export const Home = () => {
   const REFRESH_INTERVAL = 120000;
   const dispatch: AppDispatch = useDispatch();
-  const email = useSelector((state: RootState) => state.auth.user?.email);
   const stations = useSelector(selectStations);
   const loading = useSelector(selectLoading);
   const [itemsToShow, setItemsToShow] = useState(10);
@@ -68,7 +67,6 @@ export const Home = () => {
 
   return (
     <>
-      {/* <Text>Welcome {email}!</Text> */}
       <View style={styles.container}>
         <FilterButton
           label="Electric Bikes"
@@ -82,7 +80,7 @@ export const Home = () => {
           active={showMechanicalBikes}
           onPress={() => setShowMechanicalBikes(!showMechanicalBikes)}
           buttonColor="white"
-          buttonColorActive={colors.secondary}
+          buttonColorActive={colors.primary}
         />
       </View>
       <SearchBar
@@ -97,7 +95,11 @@ export const Home = () => {
         onEndReached={loadMoreStations}
         onEndReachedThreshold={0}
         ListFooterComponent={renderLoader}
-        ListEmptyComponent={<Text>No stations available.</Text>}
+        ListEmptyComponent={
+          <View style={styles.container}>
+            <Text style={styles.noResultsText}>No stations available.</Text>
+          </View>
+        }
       />
     </>
   );
