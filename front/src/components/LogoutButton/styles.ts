@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
+    color: 'white',
     fontWeight: '500',
     marginRight: 10,
   },

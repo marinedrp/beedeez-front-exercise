@@ -68,7 +68,7 @@ export const Home = () => {
 
   return (
     <>
-      <Text>Welcome {email}!</Text>
+      {/* <Text>Welcome {email}!</Text> */}
       <View style={styles.container}>
         <FilterButton
           label="Electric Bikes"

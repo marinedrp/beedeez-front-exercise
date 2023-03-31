@@ -1,3 +1,5 @@
+import { colors } from "../../theme/theme"; 
+
 function LogoutIcon() {
   return (
     <svg
@@ -9,7 +11,7 @@ function LogoutIcon() {
       viewBox="0 0 24 24"
     >
       <path
-        stroke="#333"
+        stroke={colors.primary}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"

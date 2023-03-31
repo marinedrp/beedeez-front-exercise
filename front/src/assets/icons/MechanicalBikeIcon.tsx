@@ -2,7 +2,7 @@ type Props = {
   color: string;
 };
 
-function MechanicalBike({color}: Props) {
+function MechanicalBikeIcon({color}: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -19,4 +19,4 @@ function MechanicalBike({color}: Props) {
   );
 }
 
-export default MechanicalBike;
+export default MechanicalBikeIcon;

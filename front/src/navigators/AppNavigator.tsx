@@ -8,7 +8,8 @@ import {Signup} from '../screens/Signup/Signup';
 import {Home} from '../screens/Home/Home';
 import {LogoutButton} from '../components/LogoutButton/LogoutButton';
 import { Image } from 'react-native';
-import Logo from '../assets/images/Logo.png'
+import Logo from '../assets/images/Logo-dark.png'
+import { colors } from '../theme/theme';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,9 @@ const AppStack = () => {
         name={SCREENS.HOME}
         component={Home}
         options={{
+          headerStyle: {
+            backgroundColor: '#111111',
+          },
           headerRight: () => <LogoutButton />,
           headerLeft: () => <Image source={{uri: Logo}} style={{ width: 150, height: 50, marginLeft: 15, resizeMode: 'contain' }}/>,
           headerTitle: '',
