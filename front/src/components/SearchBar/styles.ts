@@ -24,4 +24,10 @@ export default StyleSheet.create({
     paddingLeft: 10,
     fontSize: 16,
   },
+  searchIcon: {
+    marginRight: 10,
+  },
+  closeIcon: {
+    marginLeft: 5,
+  },
 });

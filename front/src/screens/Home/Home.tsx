@@ -5,7 +5,6 @@ import {AppDispatch, RootState} from '../../store/store';
 import {Loader} from '../../components/Loader/Loader';
 import {StationItem} from '../../components/StationItem/StationItem';
 import {Station} from '../../types/station';
-import {LogoutButton} from '../../components/LogoutButton/LogoutButton';
 import {SearchBar} from '../../components/SearchBar/SearchBar';
 import {
   fetchStations,
@@ -14,6 +13,7 @@ import {
 } from '../../slices/stationsSlice';
 import {FilterButton} from '../../components/FilterButton/FilterButton';
 import styles from './styles';
+import { colors } from '../../theme/theme';
 
 export const Home = () => {
   const REFRESH_INTERVAL = 120000;
@@ -74,20 +74,21 @@ export const Home = () => {
           label="Electric Bikes"
           active={showElectricBikes}
           onPress={() => setShowElectricBikes(!showElectricBikes)}
-          buttonColor="#5085A5"
-          buttonColorActive="#33566b"
+          buttonColor="white"
+          buttonColorActive={colors.secondary}
         />
         <FilterButton
           label="Mechanical Bikes"
           active={showMechanicalBikes}
           onPress={() => setShowMechanicalBikes(!showMechanicalBikes)}
-          buttonColor="#64717d"
-          buttonColorActive="#3a424a"
+          buttonColor="white"
+          buttonColorActive={colors.secondary}
         />
       </View>
       <SearchBar
         searchPhrase={searchPhrase}
         setSearchPhrase={setSearchPhrase}
+        clearSearchPhrase={() => setSearchPhrase('')}
       />
       <FlatList
         data={filteredStations.slice(0, itemsToShow)}

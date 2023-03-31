@@ -1,6 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Text} from 'react-native';
 import {styles} from './styles';
+import {colors} from '../../theme/theme'
 
 interface Props {
   label: string;
@@ -21,7 +22,7 @@ export const FilterButton: React.FC<Props> = ({
     <TouchableOpacity
       style={[styles.button, {backgroundColor: active ? buttonColorActive : buttonColor}]}
       onPress={onPress}>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, {color: active ? colors.white : colors.black}]}>{label}</Text>
     </TouchableOpacity>
   );
 };

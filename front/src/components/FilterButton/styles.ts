@@ -2,7 +2,6 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'white',
     borderRadius: 25,
     paddingVertical: 12,
     paddingHorizontal: 24,
@@ -15,7 +14,6 @@ export const styles = StyleSheet.create({
     elevation: 4,
   },
   label: {
-    color: '#ffffff',
     fontWeight: 'bold',
     fontSize: 14,
     lineHeight: 16,
