@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f6f9fc',
   },
   formContainer: {
     backgroundColor: 'white',
@@ -32,10 +31,12 @@ export const styles = StyleSheet.create({
     color: colors.black,
     textAlign: 'center',
     marginTop: 32,
+    fontWeight: '500',
   },
   link: {
     fontSize: 16,
     color: colors.primary,
+    fontWeight: '500',
   },
   input: {
     borderWidth: 1,
@@ -63,6 +64,7 @@ export const styles = StyleSheet.create({
     color: colors.error,
     marginBottom: 10,
     textAlign: 'center',
+    fontWeight: '500',
   },
   label: {
     fontWeight: 'bold',
@@ -79,4 +81,9 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 24,
   },
+  content:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });

@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, Image, ImageBackground} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {navigate} from '../../navigators/utils';
 import api from '../../services/api';
@@ -10,6 +10,7 @@ import {
 } from '../../slices/authSlice';
 import {styles} from './styles';
 import Logo from '../../assets/images/Logo-light.png';
+import backgroundImage from '../../assets/images/Paris-map-background.jpg'
 
 export const Signup = () => {
   const [email, setEmail] = useState('');
@@ -61,7 +62,7 @@ export const Signup = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={{uri: backgroundImage}} resizeMode="cover" style={styles.container} imageStyle={{opacity: 0.08}}>
       <Image source={{uri: Logo}} style={styles.logo} />
       <View style={styles.formContainer}>
         <Text style={styles.title}>Create your account</Text>
@@ -95,6 +96,6 @@ export const Signup = () => {
           Log in here.
         </Text>
       </Text>
-    </View>
+    </ImageBackground>
   );
 };
