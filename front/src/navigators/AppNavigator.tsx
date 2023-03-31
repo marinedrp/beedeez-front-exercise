@@ -9,13 +9,16 @@ import {Home} from '../screens/Home/Home';
 import {LogoutButton} from '../components/LogoutButton/LogoutButton';
 import {Image} from 'react-native';
 import Logo from '../assets/images/Logo-dark.png';
-import {colors} from '../theme/theme';
+import {useSelector} from 'react-redux';
+import {selectToken} from '../slices/authSlice';
 
 const Stack = createNativeStackNavigator();
 
 const AppStack = () => {
+  const token = useSelector(selectToken);
+
   return (
-    <Stack.Navigator initialRouteName={SCREENS.LOGIN}>
+    <Stack.Navigator initialRouteName={token ? SCREENS.HOME : SCREENS.LOGIN}>
       <Stack.Screen
         name={SCREENS.LOGIN}
         component={Login}
@@ -58,7 +61,7 @@ const linking = {
     screens: {
       [SCREENS.LOGIN]: 'login',
       [SCREENS.SIGNUP]: 'signup',
-      [SCREENS.HOME]: '',
+      [SCREENS.HOME]: '/',
     },
   },
 };
