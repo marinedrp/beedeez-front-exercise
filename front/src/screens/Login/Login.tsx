@@ -1,12 +1,9 @@
 import {useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity, Image, ImageBackground} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {navigate} from '../../navigators/utils';
 import api from '../../services/api';
 import {loginStart, loginSuccess, loginFailure} from '../../slices/authSlice';
-import {styles} from './styles';
-import Logo from '../../assets/images/Logo-light.png';
-import backgroundImage from '../../assets/images/Paris-map-background.jpg'
+import { AuthForm } from '../../components/AuthForm/AuthForm';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -45,40 +42,17 @@ export const Login = () => {
   };
 
   return (
-    <ImageBackground source={{uri: backgroundImage}} resizeMode="cover" style={styles.container} imageStyle={{opacity: 0.08}}>
-      <Image source={{uri: Logo}} style={styles.logo} />
-      <View style={styles.formContainer}>
-        <Text style={styles.title}>Log in to your account</Text>
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Email</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="E-mail"
-            onChangeText={text => setEmail(text)}
-            value={email}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Password</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry={true}
-            onChangeText={text => setPassword(text)}
-            value={password}
-          />
-        </View>
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
-      </View>
-      <Text style={styles.text}>
-        Don't have an account yet?{' '}
-        <Text style={styles.link} onPress={() => navigate('Signup')}>
-          Sign up here.
-        </Text>
-      </Text>
-    </ImageBackground>
+    <AuthForm
+    email={email}
+    setEmail={setEmail}
+    password={password}
+    setPassword={setPassword}
+    error={error}
+    handleAuth={handleLogin}
+    screen='Signup'
+    title='Log in to your account'
+    text="Don't have an account yet?"
+    link='Sign up here'
+  />
   );
 };
