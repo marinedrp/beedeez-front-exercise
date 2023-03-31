@@ -1,11 +1,10 @@
 import {useEffect, useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, ImageBackground, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from '../../store/store';
+import {AppDispatch} from '../../store/store';
 import {Loader} from '../../components/Loader/Loader';
 import {StationItem} from '../../components/StationItem/StationItem';
 import {Station} from '../../types/station';
-import {LogoutButton} from '../../components/LogoutButton/LogoutButton';
 import {SearchBar} from '../../components/SearchBar/SearchBar';
 import {
   fetchStations,
@@ -14,11 +13,11 @@ import {
 } from '../../slices/stationsSlice';
 import {FilterButton} from '../../components/FilterButton/FilterButton';
 import styles from './styles';
+import {colors} from '../../theme/theme';
 
 export const Home = () => {
   const REFRESH_INTERVAL = 120000;
   const dispatch: AppDispatch = useDispatch();
-  const email = useSelector((state: RootState) => state.auth.user?.email);
   const stations = useSelector(selectStations);
   const loading = useSelector(selectLoading);
   const [itemsToShow, setItemsToShow] = useState(10);
@@ -68,27 +67,26 @@ export const Home = () => {
 
   return (
     <>
-      <LogoutButton />
-      <Text>Welcome {email}!</Text>
       <View style={styles.container}>
         <FilterButton
           label="Electric Bikes"
           active={showElectricBikes}
           onPress={() => setShowElectricBikes(!showElectricBikes)}
-          buttonColor="#5085A5"
-          buttonColorActive="#33566b"
+          buttonColor="white"
+          buttonColorActive={colors.secondary}
         />
         <FilterButton
           label="Mechanical Bikes"
           active={showMechanicalBikes}
           onPress={() => setShowMechanicalBikes(!showMechanicalBikes)}
-          buttonColor="#64717d"
-          buttonColorActive="#3a424a"
+          buttonColor="white"
+          buttonColorActive={colors.primary}
         />
       </View>
       <SearchBar
         searchPhrase={searchPhrase}
         setSearchPhrase={setSearchPhrase}
+        clearSearchPhrase={() => setSearchPhrase('')}
       />
       <FlatList
         data={filteredStations.slice(0, itemsToShow)}
@@ -97,7 +95,11 @@ export const Home = () => {
         onEndReached={loadMoreStations}
         onEndReachedThreshold={0}
         ListFooterComponent={renderLoader}
-        ListEmptyComponent={<Text>No stations available.</Text>}
+        ListEmptyComponent={
+          <View style={styles.container}>
+            <Text style={styles.noResultsText}>No stations available.</Text>
+          </View>
+        }
       />
     </>
   );

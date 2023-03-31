@@ -1,19 +1,22 @@
-import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { navigate } from '../../navigators/utils';
+import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {navigate} from '../../navigators/utils';
 import api from '../../services/api';
-import { loginStart, loginSuccess, loginFailure } from '../../slices/authSlice';
-import { RootState } from '../../store/store';
-import { styles } from './styles';
+import {loginStart, loginSuccess, loginFailure} from '../../slices/authSlice';
+import { AuthForm } from '../../components/AuthForm/AuthForm';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const error = useSelector((state: RootState) => state.auth.error);
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      setError('Please fill in both email and password.');
+      return;
+    }
+
     dispatch(loginStart());
     try {
       const response = await api.post('/login', {
@@ -28,36 +31,28 @@ export const Login = () => {
       );
       navigate('Home');
     } catch (error: any) {
-      dispatch(loginFailure(error.response.data.message));
+      console.error(error);
+      const errorMessage = error.response.data.message;
+      dispatch(loginFailure(errorMessage));
+      if (errorMessage === 'email must be an email')
+        setError('Please enter a valid email.');
+      else setError(errorMessage);
+
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="E-mail"
-        onChangeText={text => setEmail(text)}
-        value={email}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry={true}
-        onChangeText={text => setPassword(text)}
-        value={password}
-      />
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Submit</Text>
-      </TouchableOpacity>
-      <Text style={styles.text}>
-        Don't have an account yet?{' '}
-        <Text style={styles.link} onPress={() => navigate('Signup')}>
-          Sign up here.
-        </Text>
-      </Text>
-    </View>
+    <AuthForm
+    email={email}
+    setEmail={setEmail}
+    password={password}
+    setPassword={setPassword}
+    error={error}
+    handleAuth={handleLogin}
+    screen='Signup'
+    title='Log in to your account'
+    text="Don't have an account yet?"
+    link='Sign up here'
+  />
   );
 };
