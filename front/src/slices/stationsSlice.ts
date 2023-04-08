@@ -2,6 +2,7 @@ import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../store/store';
 import {Station} from '../types/station';
 import api from '../services/api';
+import authSlice from './authSlice';
 
 interface StationState {
   stations: Station[];
@@ -26,7 +27,11 @@ export const fetchStations = createAsyncThunk(
 const stationSlice = createSlice({
   name: 'stations',
   initialState,
-  reducers: {},
+  reducers: {
+    clearStations: state => {
+      state.stations = []
+    }
+  },
   extraReducers: builder => {
     builder.addCase(fetchStations.pending, state => {
       state.loading = true;
@@ -45,6 +50,8 @@ const stationSlice = createSlice({
     });
   },
 });
+
+export const {clearStations} = stationSlice.actions;
 
 export const selectStations = (state: RootState) => state.stations.stations;
 export const selectLoading = (state: RootState) => state.stations.loading;

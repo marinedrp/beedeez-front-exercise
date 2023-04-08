@@ -1,5 +1,5 @@
 import {View, ActivityIndicator} from 'react-native';
-import {styles} from './styles';
+import {styles} from './Loader.styles';
 import {colors} from '../../theme/theme';
 
 export const Loader = () => {

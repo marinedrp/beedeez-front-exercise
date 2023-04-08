@@ -12,7 +12,7 @@ import {
   selectLoading,
 } from '../../slices/stationsSlice';
 import {FilterButton} from '../../components/FilterButton/FilterButton';
-import styles from './styles';
+import styles from './Home.styles';
 import {colors} from '../../theme/theme';
 
 export const Home = () => {
@@ -96,9 +96,11 @@ export const Home = () => {
         onEndReachedThreshold={0}
         ListFooterComponent={renderLoader}
         ListEmptyComponent={
-          <View style={styles.container}>
-            <Text style={styles.noResultsText}>No stations available.</Text>
-          </View>
+          !loading ? (
+            <View style={styles.container}>
+              <Text style={styles.noResultsText}>No stations available.</Text>
+            </View>
+          ) : null
         }
       />
     </>

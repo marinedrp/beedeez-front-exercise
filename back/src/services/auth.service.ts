@@ -9,11 +9,28 @@ import userModel from '@models/users.model';
 import { isEmpty } from '@utils/util';
 
 class AuthService {
+  private validateEmptyFields(userData: CreateUserDto): boolean {
+    return userData.email !== '' && userData.password !== '';
+  }
+
+  private validatePassword(password: string): boolean {
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    return passwordRegex.test(password);
+  }
+
   public async signup(userData: CreateUserDto): Promise<AuthUserData> {
     if (isEmpty(userData)) throw new HttpException(400, 'userData is empty');
 
+    if (!this.validateEmptyFields(userData)) throw new HttpException(400, 'Please fill in both email and password.');
+
     const findUser: User = await userModel.findOne({ email: userData.email });
     if (findUser) throw new HttpException(409, `This email ${userData.email} already exists`);
+
+    if (!this.validatePassword(userData.password))
+      throw new HttpException(
+        400,
+        'Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.',
+      );
 
     const hashedPassword = await hash(userData.password, 10);
     const createUserData: User = await userModel.create({ ...userData, password: hashedPassword });
@@ -33,6 +50,8 @@ class AuthService {
 
   public async login(userData: CreateUserDto): Promise<AuthUserData> {
     if (isEmpty(userData)) throw new HttpException(400, 'userData is empty');
+
+    if (!this.validateEmptyFields(userData)) throw new HttpException(400, 'Please fill in both email and password.');
 
     const findUser: User = await userModel.findOne({ email: userData.email });
     if (!findUser) throw new HttpException(409, `This email ${userData.email} was not found`);

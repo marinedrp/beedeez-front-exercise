@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Text, View} from 'react-native';
-import {styles} from './styles';
+import {styles} from './FilterButton.styles';
 import {colors} from '../../theme/theme';
 import EbikeIcon from '../../assets/icons/EbikeIcon';
 import MechanicalBike from '../../assets/icons/MechanicalBikeIcon';

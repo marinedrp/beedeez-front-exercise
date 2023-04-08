@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {navigate} from '../../navigators/utils';
+import {navigate} from '../../navigators/navigators.utils';
 import api from '../../services/api';
 import {loginStart, loginSuccess, loginFailure} from '../../slices/authSlice';
 import {AuthForm} from '../../components/AuthForm/AuthForm';
@@ -12,11 +12,6 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
-    if (!email || !password) {
-      setError('Please fill in both email and password.');
-      return;
-    }
-
     dispatch(loginStart());
     try {
       const response = await api.post('/login', {
@@ -31,12 +26,9 @@ export const Login = () => {
       );
       navigate('Home');
     } catch (error: any) {
-      console.error(error);
       const errorMessage = error.response.data.message;
       dispatch(loginFailure(errorMessage));
-      if (errorMessage === 'email must be an email')
-        setError('Please enter a valid email.');
-      else setError(errorMessage);
+      setError(errorMessage);
     }
   };
 
@@ -48,7 +40,7 @@ export const Login = () => {
       setPassword={setPassword}
       error={error}
       handleAuth={handleLogin}
-      screen="Signup"
+      redirectScreen="Signup"
       title="Log in to your account"
       text="Don't have an account yet?"
       link="Sign up here"

@@ -1,16 +1,18 @@
 import {View, Text} from 'react-native';
 import { Station } from '../../types/station';
-import { styles } from './styles';
+import { styles } from './StationItem.styles';
 import EbikeIcon from '../../assets/icons/EbikeIcon';
 import MechanicalBikeIcon from '../../assets/icons/MechanicalBikeIcon';
 import DocksIcon from '../../assets/icons/DocksIcon';
 import { colors } from '../../theme/theme';
+import { formatUpdatedAt } from './StationItem.utils';
 
 export const StationItem = ({item}: {item: Station}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.nameText}>{item.name}</Text>
       <Text style={styles.codeText}>Code: {item.stationCode}</Text>
+      <Text style={styles.codeText}>Last update: {formatUpdatedAt(item.updatedAt.toString())}</Text>
       <View style={styles.separator} />
       <View style={styles.dataContainer}>
         <View style={styles.dataRow}>

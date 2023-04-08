@@ -1,5 +1,5 @@
 import {TextInput, TouchableOpacity, View} from 'react-native';
-import styles from './styles';
+import styles from './SearchBar.styles';
 import MagnifyingGlass from '../../assets/icons/MagnifyingGlass';
 import CloseButton from '../../assets/icons/CloseButton';
 

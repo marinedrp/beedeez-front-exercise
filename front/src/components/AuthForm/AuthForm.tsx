@@ -7,8 +7,8 @@ import {
   Image,
   ImageBackground,
 } from 'react-native';
-import {navigate} from '../../navigators/utils';
-import {styles} from './styles';
+import {navigate} from '../../navigators/navigators.utils';
+import {styles} from './AuthForm.styles';
 import Logo from '../../assets/images/Logo-light.png';
 import backgroundImage from '../../assets/images/Paris-map-background.jpg';
 
@@ -19,7 +19,7 @@ interface Props {
   setPassword: (text: string) => void;
   error: string;
   handleAuth: () => void;
-  screen: string;
+  redirectScreen: string;
   title: string;
   text: string;
   link: string;
@@ -32,7 +32,7 @@ export const AuthForm = ({
   setPassword,
   error,
   handleAuth,
-  screen,
+  redirectScreen,
   title,
   text,
   link,
@@ -72,7 +72,7 @@ export const AuthForm = ({
       </View>
       <Text style={styles.text}>
         {text}{' '}
-        <Text style={styles.link} onPress={() => navigate(screen)}>
+        <Text style={styles.link} onPress={() => navigate(redirectScreen)}>
           {link}
         </Text>
       </Text>
